@@ -8,7 +8,7 @@ st.title("📦 Consulta de Inventario - Part Numbers")
 
 # Intentamos leer tu archivo específico
 try:
-    df = pd.read_excel("PN APP.xlsx")
+    df = pd.read_excel("PN APP.xlsx", engine='openpyxl')
     
     # Buscador opcional
     busqueda = st.text_input("Buscar por nombre o número de parte:")
