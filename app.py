@@ -4,7 +4,7 @@ import numpy as np
 
 st.set_page_config(page_title="Gestión de Part Numbers", layout="wide")
 
-st.title("📦 Visor de Inventario: Part Numbers")
+st.title("📦Part Numbers LATAM")
 
 try:
     # 1. Leer el archivo
