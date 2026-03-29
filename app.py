@@ -42,7 +42,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.title("📦 Gestión de Part Numbers")
+st.title("📦 Part Numbers List Dairo R")
 
 # --- FUNCIÓN DE LIMPIEZA DE NÚMEROS ---
 def forzar_numero_completo(valor):
@@ -74,7 +74,7 @@ try:
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
     # 3. INTERFAZ: Buscador
-    busqueda = st.text_input("🔍 Buscar por nombre o número de parte:", placeholder="Ej: Faucet o 298029...")
+    busqueda = st.text_input("🔍 Buscar por nombre o número de parte:", placeholder="Ej: Bridas")
 
     if busqueda:
         mask = df.apply(lambda row: row.astype(str).str.contains(busqueda, case=False).any(), axis=1)
