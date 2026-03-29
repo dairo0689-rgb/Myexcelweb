@@ -102,5 +102,3 @@ except Exception as e:
 
 # --- CRÉDITOS ---
 st.markdown('<div class="footer">Created by Dairo Romero</div>', unsafe_allow_html=True)
-
-
