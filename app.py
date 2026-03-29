@@ -41,7 +41,7 @@ try:
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
     # 3. INTERFAZ: Buscador
-    busqueda = st.text_input("🔍 Buscar por nombre o número de parte:", placeholder="Ej: CABLE")
+    busqueda = st.text_input("🔍 Buscar por nombre o número de parte:", placeholder="Ej: Wire")
 
     if busqueda:
         mask = df.apply(lambda row: row.astype(str).str.contains(busqueda, case=False).any(), axis=1)
