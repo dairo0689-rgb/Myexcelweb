@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Configuración de página
-st.set_page_config(page_title="Gestión de Part Numbers", layout="wide")
+st.set_page_config(page_title="Part Numbers List Dairo R", layout="wide")
 
 # --- BLOQUE DE DISEÑO PERSONALIZADO (CSS) ---
 st.markdown("""
