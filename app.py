@@ -29,7 +29,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.title("📦 Visor de Inventario: Part Numbers")
+st.title("📦 Part Numbers LATAM")
 
 try:
     # 1. Leer el archivo
