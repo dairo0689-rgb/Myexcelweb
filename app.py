@@ -30,46 +30,43 @@ st.markdown("""
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: transparent;
+        background-color: rgba(255, 255, 255, 0.8);
         color: #1f4e79;
         text-align: center;
-        padding: 10px;
+        padding: 5px;
         font-weight: bold;
+        font-size: 14px;
+        border-top: 1px solid #eee;
     }
     </style>
     """, unsafe_allow_html=True)
 
 st.title("📦 Gestión de Part Numbers")
 
-# --- FUNCIÓN DE LIMPIEZA AGRESIVA ---
+# --- FUNCIÓN DE LIMPIEZA DE NÚMEROS ---
 def forzar_numero_completo(valor):
     if pd.isna(valor) or str(valor).strip() in ["", "nan", "NaN", "None"]:
         return ""
-    
     try:
-        # 1. Limpiar el string: quitar espacios y normalizar comas a puntos
         val_limpio = str(valor).strip().replace(',', '.')
-        
-        # 2. Convertir a float para procesar la notación científica (ej. 2.98E+12)
         numero_float = float(val_limpio)
-        
-        # 3. Convertir a string con 0 decimales (formato entero largo)
-        resultado = "{:.0f}".format(numero_float)
-        return resultado
+        return "{:.0f}".format(numero_float)
     except:
-        # Si falla (ej. es texto real), devolver el valor original sin espacios
         return str(valor).strip()
 
 try:
-    # 1. Leer el archivo (dtype=str para que no procese nada automáticamente)
-    df = pd.read_csv("PN_APP.csv", sep=None, engine='python', encoding='latin1', dtype=str)
+    # 1. LEER EL ARCHIVO PROBANDO ENCODINGS
+    # Intentamos leer con 'utf-8-sig' que suele corregir los símbolos raros de Excel
+    try:
+        df = pd.read_csv("PN_APP.csv", sep=None, engine='python', encoding='utf-8-sig', dtype=str)
+    except:
+        # Si falla, probamos con latin1 pero forzando la limpieza de caracteres
+        df = pd.read_csv("PN_APP.csv", sep=None, engine='python', encoding='latin1', dtype=str)
 
-    # 2. APLICAR LIMPIEZA A TODO EL DATAFRAME
-    # Esto busca cualquier columna que contenga números con "E+" y los expande
+    # 2. APLICAR LIMPIEZA
     for col in df.columns:
         df[col] = df[col].apply(forzar_numero_completo)
 
-    # Limpieza de columnas fantasmas de Excel
     df = df.dropna(axis=1, how='all')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
@@ -85,7 +82,6 @@ try:
     # 4. MOSTRAR TABLA
     st.write(f"Mostrando **{len(df_filtrado)}** registros:")
     
-    # Configuración de columnas para evitar que Streamlit las reconvierta a números
     config_columnas = {col: st.column_config.TextColumn(col) for col in df.columns}
 
     st.dataframe(
@@ -102,4 +98,5 @@ except Exception as e:
 
 # --- CRÉDITOS ---
 st.markdown('<div class="footer">Created by Dairo Romero</div>', unsafe_allow_html=True)
+)
 
