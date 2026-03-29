@@ -9,7 +9,7 @@ st.markdown("""
     <style>
     /* Estilo para los títulos de las columnas */
     [data-testid="stHeader"] {
-        background-color: #3392b5 !important; /* Azul oscuro empresarial */
+        background-color: #3392b5 !important; /* Azul claro empresarial */
     }
     
     /* Forzar negrilla y color en las cabeceras del DataFrame */
